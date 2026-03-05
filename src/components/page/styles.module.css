@@ -12,4 +12,8 @@
   padding: 1rem;
 
   gap: 0.5rem;
+
+  background-color: var(--bg-primary);
+
+  transition: background-color 0.25s ease-in-out;
 }
