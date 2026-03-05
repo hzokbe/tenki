@@ -121,7 +121,7 @@ export default function App() {
         <h1>Tenki</h1>
       </Card>
 
-      {temperature && <h2>{temperature.toFixed(0)}º</h2>}
+      {temperature && <h3>{temperature.toFixed(0)}º</h3>}
 
       <Button
         className="themeToggleButton"

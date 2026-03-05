@@ -68,6 +68,12 @@ h2 {
   text-wrap: nowrap;
 }
 
+h3 {
+  font-size: 3.5rem;
+
+  text-wrap: nowrap;
+}
+
 @media (max-width: 1280px) {
   h2 {
     font-size: 2.5rem;
