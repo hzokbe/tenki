@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import DarkMode from './assets/dark-mode.svg?react';
 import LightMode from './assets/light-mode.svg?react';
+import PartlyCloudyDay from './assets/partly-cloudy-day.svg?react';
 import Button from './components/button/Button';
 import Card from './components/card/Card';
 import Page from './components/page/Page';
@@ -24,6 +25,8 @@ export default function App() {
   return (
     <Page>
       <Card>
+        <PartlyCloudyDay className="icon" />
+
         <h1>Tenki</h1>
       </Card>
 

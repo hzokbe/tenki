@@ -53,3 +53,9 @@ body {
 
   margin: 1rem;
 }
+
+.icon {
+  width: 96px;
+
+  height: 96px;
+}
