@@ -30,6 +30,8 @@ export default function App() {
         <h1>Tenki</h1>
       </Card>
 
+      <h2>20º</h2>
+
       <Button
         className="themeToggleButton"
         onClick={() => setDarkTheme((prev) => !prev)}
