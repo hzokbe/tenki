@@ -43,3 +43,13 @@ body {
 
   color: var(--color);
 }
+
+.themeToggleButton {
+  position: absolute;
+
+  right: 0px;
+
+  bottom: 0px;
+
+  margin: 1rem;
+}
