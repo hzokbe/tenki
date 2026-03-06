@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from './api/api';
+import { reverseGeocodingAPI, weatherAPI } from './api/api';
 import DarkMode from './assets/dark-mode.svg?react';
 import LightMode from './assets/light-mode.svg?react';
 import PartlyCloudyDay from './assets/partly-cloudy-day.svg?react';
@@ -8,6 +8,7 @@ import Card from './components/card/Card';
 import Page from './components/page/Page';
 import type { OpenMeteoReponse } from './types/OpenMeteoResponse';
 import fahrenheitToCelsius from './utils/fahrenheitToCelsius';
+import { parser } from './utils/xmlParser';
 
 type Status = 'LOADING' | 'SUCCESS' | 'ERROR';
 
@@ -23,6 +24,10 @@ export default function App() {
   const [position, setPosition] = useState<GeolocationPosition | null>(null);
 
   const [temperature, setTemperature] = useState<number | null>(null);
+
+  const [state, setState] = useState<string | null>();
+
+  const [country, setCountry] = useState<string | null>();
 
   useEffect(() => {
     document.documentElement.setAttribute(
@@ -61,10 +66,22 @@ export default function App() {
         const longitude = position.coords.longitude;
 
         const response = (
-          await api.get(
+          await weatherAPI.get(
             `/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m`,
           )
         ).data as OpenMeteoReponse;
+
+        const xml = (
+          await reverseGeocodingAPI.get(
+            `/reverse?lat=${latitude}&lon=${longitude}`,
+          )
+        ).data;
+
+        const data = parser.parse(xml);
+
+        setState(data.reversegeocode.addressparts.state);
+
+        setCountry(data.reversegeocode.addressparts.country);
 
         const celsius = response.current_units.temperature_2m.includes('C');
 
@@ -122,6 +139,12 @@ export default function App() {
       </Card>
 
       {temperature && <h3>{temperature.toFixed(0)}º</h3>}
+
+      {state && country && (
+        <h4>
+          {state} - {country}
+        </h4>
+      )}
 
       <Button
         className="themeToggleButton"
